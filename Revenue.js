@@ -1,4 +1,4 @@
-let column = ["年度/月份", "當月營收", "月增率", "去年同期營收", "年增率", "當月累計營收", "去年累計營收", "年增率"]
+const column = ["年度/月份", "當月營收", "月增率", "去年同期營收", "年增率", "當月累計營收", "去年累計營收", "年增率"]
 let input = document.getElementById("input_symbol");
 
 input.addEventListener("keypress", event => {
@@ -20,7 +20,7 @@ document.getElementById("button1").onclick = async function fet(symbol) {
 
         //url = "https://localhost:7203/Revenue";
         url = "https://stocksserver20220929144022.azurewebsites.net/Revenue"
-        const response = await getData(url);
+        const response = await getData(url,symbol);
 
         response.json().then(data => {
 
@@ -30,15 +30,16 @@ document.getElementById("button1").onclick = async function fet(symbol) {
             else
                 document.getElementById("h1").textContent = "Something Error";
 
-            createTable(jsonStr);
+            createTable(json);
         });
-    } catch {
+    } catch(e) {
         document.getElementById("h1").textContent = "Server is Down"
+        console.log(e);
     }
     document.getElementById("button1").disabled = false;
 }
 
-function  getData(url){
+function  getData(url,symbol){
     response =  fetch(url, {
         method: 'POST',
         headers: {
@@ -67,7 +68,7 @@ function createTable(data) {
         th.appendChild(document.createTextNode(column[cl]));
         tr.appendChild(th);
     }
-    
+
     table.appendChild(tr);
     let list = data["data"]
 
