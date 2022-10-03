@@ -13,13 +13,15 @@
         <button id="btnRevenue">營收表</button>
         <button id="btnProfile">基本資料</button>
     </div>
-    <script>
-        //console.log("run");
+    <script type="module">
+        import * as path from "./path.mjs";
+
         document.getElementById("btnRevenue").onclick = function f(){
-            window.location.href ="https://yehlock.github.io/CR-stock-web.github.io/revenue";
+            window.location.href = path.revenueURL
+            console.log(path.revenueURL);
         }
         document.getElementById("btnProfile").onclick = function f(){
-            window.location.href ="https://yehlock.github.io/CR-stock-web.github.io/profile";
+            window.location.href = path.profileURL;
         }
     </script>
     

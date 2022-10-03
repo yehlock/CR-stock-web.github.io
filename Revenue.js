@@ -1,5 +1,8 @@
+import * as path from "./path.mjs"
+
 const column = ["年度/月份", "當月營收", "月增率", "去年同期營收", "年增率", "當月累計營收", "去年累計營收", "年增率"]
 let input = document.getElementById("input_symbol");
+var response;
 
 input.addEventListener("keypress", event => {
     if (event.key === "Enter") {
@@ -10,7 +13,7 @@ input.addEventListener("keypress", event => {
 })
 
 document.getElementById("btnIndex").onclick=() =>{
-    window.location.href ="https://yehlock.github.io/CR-stock-web.github.io";
+    window.location.href = path.indexURL
 }
 
 document.getElementById("btnSearch").onclick = async function fet(symbol) {
@@ -20,16 +23,22 @@ document.getElementById("btnSearch").onclick = async function fet(symbol) {
         document.getElementById("btnSearch").disabled = true;
         symbol = document.getElementById("input_symbol").value;
         console.log("symbol = " + symbol);
-        document.title = "Rev " + symbol
+        document.title = "Rev " + symbol;
 
-        url = "https://localhost:7203/Revenue";
-        //url = "https://stocksserver20220929144022.azurewebsites.net/Revenue"
-        //url = "https://codereview091620220930161955.azurewebsites.net/select";
+        let url = path.serverURL;
+
         const response = await getData(url,symbol);
         console.log(response);
+        //let a = doucument.getElementById("h1");
         response.json().then(data => {
+            console.log(data);
+            console.log(typeof(data));
+            var json;
+            if(typeof(data)==String)
+                json = JSON.parse(data);
+            else
+                json = data;
 
-            var json = JSON.parse(data)
             if (json["name"] != "")
                 document.getElementById("h1").textContent = json["name"] + " " + json["symbol"];
             else
@@ -38,7 +47,7 @@ document.getElementById("btnSearch").onclick = async function fet(symbol) {
             createTable(json);
         });
     } catch(e) {
-        document.getElementById("h1").textContent = "Server is Down"
+        document.getElementById("h1").textContent = "Server is Down";
         console.log(e);
     }
     document.getElementById("btnSearch").disabled = false;
@@ -57,7 +66,7 @@ function  getData(url,symbol){
 }
 
 function createTable(data) {
-    oldTable = document.getElementById("table")
+    let oldTable = document.getElementById("table")
     if (oldTable != null)
         document.getElementById("table").remove();
     let table = document.createElement("table");
@@ -77,7 +86,7 @@ function createTable(data) {
     for (let i in list) {
         let td;
         tr = document.createElement("tr");
-        for (j in list[i]) {
+        for (let j in list[i]) {
             td = document.createElement("td")
             if (list[i][j] === null) td.appendChild(document.createTextNode("-"))
             else if (list[i]["mg"] == list[i][j] || list[i]["yg"] == list[i][j] || list[i]["tyg"] == list[i][j]) {
