@@ -4,24 +4,29 @@ let input = document.getElementById("input_symbol");
 input.addEventListener("keypress", event => {
     if (event.key === "Enter") {
         event.preventDefault();
-        document.getElementById("button1").click();
+        document.getElementById("btnSearch").click();
         input.value = "";
     }
 })
 
-document.getElementById("button1").onclick = async function fet(symbol) {
+document.getElementById("btnIndex").onclick=() =>{
+    window.location.href ="https://yehlock.github.io/CR-stock-web.github.io";
+}
+
+document.getElementById("btnSearch").onclick = async function fet(symbol) {
     document.title = "Rev " + symbol
     try {
         document.getElementById("h1").textContent = "讀取中";
-        document.getElementById("button1").disabled = true;
+        document.getElementById("btnSearch").disabled = true;
         symbol = document.getElementById("input_symbol").value;
         console.log("symbol = " + symbol);
         document.title = "Rev " + symbol
 
-        //url = "https://localhost:7203/Revenue";
-        url = "https://stocksserver20220929144022.azurewebsites.net/Revenue"
+        url = "https://localhost:7203/Revenue";
+        //url = "https://stocksserver20220929144022.azurewebsites.net/Revenue"
+        //url = "https://codereview091620220930161955.azurewebsites.net/select";
         const response = await getData(url,symbol);
-
+        console.log(response);
         response.json().then(data => {
 
             var json = JSON.parse(data)
@@ -36,7 +41,7 @@ document.getElementById("button1").onclick = async function fet(symbol) {
         document.getElementById("h1").textContent = "Server is Down"
         console.log(e);
     }
-    document.getElementById("button1").disabled = false;
+    document.getElementById("btnSearch").disabled = false;
 }
 
 function  getData(url,symbol){
@@ -46,10 +51,7 @@ function  getData(url,symbol){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: `{
-                    "symbol":"${symbol}"
-                    }
-                    `,
+        body: `{"symbol":"${symbol}"}`,
     });
     return response;
 }
