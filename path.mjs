@@ -9,7 +9,6 @@ if(window.location.href.includes("127.0.0.1")){
     revenueURL = "http://127.0.0.1:5500/Revenue.html";
     profileURL = "http://127.0.0.1:5500/profile.html";
     serverURL = "https://localhost:7203/Revenue";
-    //serverURL = "https://codereview06.azurewebsites.net/api/CodeReviewDb"
 }
 else{
     //     github

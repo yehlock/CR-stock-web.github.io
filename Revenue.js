@@ -31,10 +31,10 @@ document.getElementById("btnSearch").onclick = async function fet(symbol) {
         console.log(response);
         //let a = doucument.getElementById("h1");
         response.json().then(data => {
-            console.log(data);
-            console.log(typeof(data));
+            //console.log(data);
+            //console.log(typeof(data));
             var json;
-            if(typeof(data)==String)
+            if(typeof(data)==typeof("String"))
                 json = JSON.parse(data);
             else
                 json = data;
