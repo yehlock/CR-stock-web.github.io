@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="profile.css">
 </head>
 <body>
     <h1 id = "h1" style="text-align:center">Profile</h1>
@@ -13,6 +15,79 @@
         <input type="button" id="btnSearch" value="搜尋">
         <button id="btnIndex">回首頁</button>
         <h1> </h1>
+        <table type="table" id="table">
+            <tr>
+                <th colspan=4 >公司基本資料</th>
+            </tr>
+            <tr>
+                <td class="title">股票代號</td>
+                <td class="info" id="symbol">-</td>
+                <td class="title">所屬集團</td>
+                <td class="info" id="belongingGroup">-</td>
+            </tr>
+            <tr>
+                <td class="title">董事長</td>
+                <td class="info" id="chairman">-</td>
+                <td class="title">總經理</td>
+                <td class="info" id="president">-</td>
+            </tr>
+            <tr>
+                <td class="title">成立日期</td>
+                <td class="info" id="estDate">-</td>
+                <td class="title">上市日期</td>
+                <td class="info" id="listedDate">-</td>
+            </tr>
+            <tr>
+                <td class="title">股本</td>
+                <td class="info" id="shareCapital">-</td>
+                <td class="title">已發行普通股數</td>
+                <td class="info" id="outstandingShare">-</td>
+            </tr>
+            <tr>
+                <td class="title">市值(百萬)</td>
+                <td class="info" id="marketValue">-</td>
+                <td class="title">董監持股比例</td>
+                <td class="info" id="cnptHdgShare">-</td>
+            </tr>
+            <tr>
+                <td class="title">發言人</td>
+                <td class="info" id="spokesperson">-</td>
+                <td class="title">代理發言人</td>
+                <td class="info" id="actingSpokesperson">-</td>
+            </tr>
+            <tr>
+                <td class="title">電話</td>
+                <td class="info" id="tel">-</td>
+                <td class="title">傳真電話</td>
+                <td class="info" id="fax">-</td>
+            </tr>
+            <tr>
+                <td class="website">網站</td>
+                <td>
+                    <a class="info" id="website">-</a>
+                </td>
+                <td class="title">電子郵件</td>
+                <td class="info" id="email">-</td>
+            </tr>
+            <tr>
+                <td class="agent">股務代理</td>
+                <td class="info" id="agent">-</td>
+                <td class="title">簽證會計師</td>
+                <td class="info" id="accounting">-</td>
+            </tr>
+            <tr>
+                <td class="address">地址</td>
+                <td class="info" id="address">-</td>
+                <td class="market">市場別</td>
+                <td class="info" id="market">-</td>
+            </tr>
+            <tr>
+                <td>主要經營業務</td>
+                <td class="info" id="intro" colspan="3"></td>
+            </tr>
+            
+        </table>
+        
     </div>
     <script type="module" src="profile.js"></script>
 </body>

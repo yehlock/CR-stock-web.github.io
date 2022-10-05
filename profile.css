@@ -1,0 +1,18 @@
+table{
+    border: 2px solid;
+    width: 100%;
+    border-color: black;
+    text-align: center;
+}
+
+td, th{
+    border: 1px solid;
+}
+
+.title{
+    width: 15%;
+}
+
+.info{
+    width: 35%;
+}

@@ -1,0 +1,16 @@
+.rise{
+    color: orangered;
+}
+
+.fall{
+    color: yellowgreen;
+}
+
+td{
+    text-align: right;
+}
+
+div, h1{
+    text-align: center;
+}
+

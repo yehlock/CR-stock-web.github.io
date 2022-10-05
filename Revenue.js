@@ -12,6 +12,7 @@ input.addEventListener("keypress", event => {
     }
 })
 
+
 document.getElementById("btnIndex").onclick=() =>{
     window.location.href = path.indexURL
 }
@@ -25,13 +26,13 @@ document.getElementById("btnSearch").onclick = async function fet(symbol) {
         console.log("symbol = " + symbol);
         document.title = "Rev " + symbol;
 
-        let url = path.serverURL;
+        let url = path.serverRevenueURL;
 
         const response = await getData(url,symbol);
         console.log(response);
         //let a = doucument.getElementById("h1");
         response.json().then(data => {
-            //console.log(data);
+            console.log(data);
             //console.log(typeof(data));
             var json;
             if(typeof(data)==typeof("String"))
@@ -90,7 +91,13 @@ function createTable(data) {
             td = document.createElement("td")
             if (list[i][j] === null) td.appendChild(document.createTextNode("-"))
             else if (list[i]["mg"] == list[i][j] || list[i]["yg"] == list[i][j] || list[i]["tyg"] == list[i][j]) {
-                td.appendChild(document.createTextNode(list[i][j].toFixed(2) + "%"))
+                td.appendChild(document.createTextNode(list[i][j].toFixed(2) + "%"));
+                if(list[i][j]>=0){
+                    td.classList.add("rise");
+                }else{
+                    td.classList.add("fall");
+                }
+                
             } else {
                 td.appendChild(document.createTextNode(list[i][j].toLocaleString('en-US')))
             }
