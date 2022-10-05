@@ -1,11 +1,9 @@
 "use strict"
 import * as path from "./path.mjs"
 
-$("#btnSearch").on("click", getData);
-$("#btnIndex").on("click",()=>window.location.href = path.indexURL)
-
+let search = true;
 $("#input_symbol").on("keypress",e=>{
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && search == true) {
         e.preventDefault();
         $("#btnSearch").click();
         $("#input_symbol").val("");
@@ -14,6 +12,7 @@ $("#input_symbol").on("keypress",e=>{
 
 let getData = () => {
     $("#btnSearch").prop({disabled:true});
+    search == false
     let resquest = {symbol:$("#input_symbol").val()}
     $("#h1").text("Loading")
     $.ajax({
@@ -29,34 +28,39 @@ let getData = () => {
             setValue(r.data,r.symbol)
         })
         .fail(()=>$("#h1").text("Fail"))
-        .always(()=>$("#btnSearch").prop({disabled:false})) 
+        .always(()=>{
+            $("#btnSearch").prop({disabled:false})
+            search == true
+            })
         
 }
 
 let setValue = (data,symbol) => {
     $(".info").text("-");
     if(data!=null)
+    {
         $("#symbol").text(symbol);
-    $("#belongingGroup").text(data.belongingGroup);
-    $("#chairman").text(data.chairman);
-    $("#president").text(data.president);
-    $("#estDate").text(new Date(data.estDate).toLocaleDateString('zh-TW'));
-    $("#listedDate").text(new Date(data.listedDate).toLocaleDateString('zh-TW'));
-    $("#shareCapital").text(data.shareCapital.toLocaleString('zh-TW'));
-    $("#outstandingShare").text(data.outstandingShare.toLocaleString('zh-TW'));
-    $("#marketValue").text(data.marketValue.toLocaleString('zh-TW'));
-    $("#cnptHdgShare").text(data.cnptHdgShare+"%");
-    $("#spokesperson").text(data.spokesperson);
-    $("#actingSpokesperson").text(data.actingSpokesperson);
-    $("#tel").text(formatPhone(data.tel));
-    $("#fax").text(formatPhone(data.fax));
-    $("#website").attr("href",data.website).text(data.website);
-    $("#email").text(data.email);
-    $("#agent").text(data.agent);
-    $("#accounting").text(data.accounting);
-    $("#address").text(data.address);
-    $("#market").text("上市");
-    $("#intro").text(data.intro);
+        $("#belongingGroup").text(data.belongingGroup);
+        $("#chairman").text(data.chairman);
+        $("#president").text(data.president);
+        $("#estDate").text(new Date(data.estDate).toLocaleDateString('zh-TW'));
+        $("#listedDate").text(new Date(data.listedDate).toLocaleDateString('zh-TW'));
+        $("#shareCapital").text(data.shareCapital.toLocaleString('zh-TW'));
+        $("#outstandingShare").text(data.outstandingShare.toLocaleString('zh-TW'));
+        $("#marketValue").text(data.marketValue.toLocaleString('zh-TW'));
+        $("#cnptHdgShare").text(data.cnptHdgShare+"%");
+        $("#spokesperson").text(data.spokesperson);
+        $("#actingSpokesperson").text(data.actingSpokesperson);
+        $("#tel").text(formatPhone(data.tel));
+        $("#fax").text(formatPhone(data.fax));
+        $("#website").attr("href",data.website).text(data.website);
+        $("#email").text(data.email);
+        $("#agent").text(data.agent);
+        $("#accounting").text(data.accounting);
+        $("#address").text(data.address);
+        $("#market").text("上市");
+        $("#intro").text(data.intro);
+    }
 }
     
 let formatPhone = (num) =>{
@@ -77,5 +81,6 @@ let formatPhone = (num) =>{
 }
 
 
-
+$("#btnSearch").on("click", getData);
+$("#btnIndex").on("click", () => window.location.href = path.indexURL)
 
