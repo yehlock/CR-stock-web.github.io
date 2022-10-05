@@ -1,12 +1,16 @@
 "use strict"
 import * as path from "./path.mjs"
 
+$("#btnSearch").on("click", getData);
+$("#btnIndex").on("click",()=>window.location.href = path.indexURL)
+
 $("#input_symbol").on("keypress",e=>{
     if (e.key === "Enter") {
         e.preventDefault();
         $("#btnSearch").click();
         $("#input_symbol").val("");
 }});
+
 
 let getData = () => {
     $("#btnSearch").prop({disabled:true});
@@ -72,6 +76,6 @@ let formatPhone = (num) =>{
     return "(0" + dict + ")" + centre +"-" + last;
 }
 
-$("#btnSearch").on("click", getData);
+
 
 
