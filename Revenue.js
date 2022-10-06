@@ -27,26 +27,34 @@ document.getElementById("btnSearch").onclick = async function fet(symbol) {
         document.title = "Rev " + symbol;
 
         let url = path.serverRevenueURL;
-
-        const response = await getData(url,symbol);
-        console.log(response);
-        //let a = doucument.getElementById("h1");
-        response.json().then(data => {
-            console.log(data);
-            //console.log(typeof(data));
-            var json;
-            if(typeof(data)==typeof("String"))
-                json = JSON.parse(data);
-            else
-                json = data;
-
+        let data = sessionStorage.getItem(symbol)
+        if (data != null){
+            let json = JSON.parse(data);
             if (json["name"] != "")
                 document.getElementById("h1").textContent = json["name"] + " " + json["symbol"];
             else
                 document.getElementById("h1").textContent = "Something Error";
-
             createTable(json);
-        });
+        }else{
+            const response = await getData(url,symbol);
+            response.json().then(data => {
+                console.log(data);
+                var json;
+                if(typeof(data)==typeof("String"))
+                    json = JSON.parse(data);
+                else
+                    json = data;
+    
+                if (json["name"] != "")
+                    document.getElementById("h1").textContent = json["name"] + " " + json["symbol"];
+                else
+                    document.getElementById("h1").textContent = "Something Error";
+    
+                createTable(json);
+                sessionStorage.setItem(symbol,data)
+            });
+        }
+        
     } catch(e) {
         document.getElementById("h1").textContent = "Server is Down";
         console.log(e);

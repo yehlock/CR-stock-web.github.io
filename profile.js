@@ -12,31 +12,47 @@ $("#input_symbol").on("keypress",e=>{
 
 let getData = () => {
     $("#btnSearch").prop({disabled:true});
-    search == false
-    let resquest = {symbol:$("#input_symbol").val()}
+    search = false
+    let symbol = $("#input_symbol").val();
+    let resquest = {symbol:symbol}
     $("#h1").text("Loading")
-    $.ajax({
+    let data = sessionStorage.getItem(symbol)
+    data = JSON.stringify(data)
+    console.log(data);
+    if(data == "null"){
+        console.log("fromServer");
+        $.ajax({
             type:"POST",
             url:path.serverProfileURL,
             success:()=>{console.log("success");},
             data:JSON.stringify(resquest),
             contentType:'application/json'
-        }).done(r => {
-            r = JSON.parse(r)
-            console.log(r)
-            $("#h1").text(r.name + " " + r.symbol)
-            setValue(r.data,r.symbol)
+        }).done(res => {
+            let json = JSON.parse(res)
+            console.log(json)
+            $("#h1").text(json.name + " " + json.symbol)
+            sessionStorage.setItem(json.symbol,res)
+            setValue(json.symbol,json.data)
         })
         .fail(()=>$("#h1").text("Fail"))
         .always(()=>{
             $("#btnSearch").prop({disabled:false})
-            search == true
-            })
-        
+            search = true
+        })
+    }else{
+        let json = JSON.parse(data);
+        json = JSON.parse(json);
+        console.log("from session storge");
+        $("#h1").text(json.name + " " + json.symbol);
+        setValue(json.symbol,json.data);
+        $("#btnSearch").prop({disabled:false})
+        search = true
+    }  
 }
 
-let setValue = (data,symbol) => {
+let setValue = (symbol,data) => {
     $(".info").text("-");
+    //debugger
     if(data!=null)
     {
         $("#symbol").text(symbol);
