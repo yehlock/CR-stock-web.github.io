@@ -51,7 +51,8 @@ document.getElementById("btnSearch").onclick = async function fet(symbol) {
                     document.getElementById("h1").textContent = "Something Error";
     
                 createTable(json);
-                sessionStorage.setItem(symbol,data)
+                if(json["responseCode"] != "005")
+                    sessionStorage.setItem(symbol,data)
             });
         }
         
@@ -106,6 +107,8 @@ function createTable(data) {
                     td.classList.add("fall");
                 }
                 
+            } else if(list[i][j] == list[i]["ym"]){
+                td.appendChild(document.createTextNode(list[i][j].slice(0,4) + "/" + list[i][j].slice(4)));
             } else {
                 td.appendChild(document.createTextNode(list[i][j].toLocaleString('en-US')))
             }

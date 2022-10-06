@@ -8,9 +8,14 @@ table{
 td, th{
     border: 1px solid;
 }
+th{
+    background-color: rgb(136, 132, 132);
+    color:white;
+}
 
 .title{
     width: 15%;
+    background-color: rgb(208, 204, 204);
 }
 
 .info{
