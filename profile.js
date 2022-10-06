@@ -16,7 +16,7 @@ let getData = () => {
     let symbol = $("#input_symbol").val();
     let resquest = {symbol:symbol}
     $("#h1").text("Loading")
-    let data = sessionStorage.getItem(symbol)
+    let data = sessionStorage.getItem(symbol+"Pro")
     data = JSON.stringify(data)
     console.log(data);
     if(data == "null"){
@@ -31,7 +31,7 @@ let getData = () => {
             let json = JSON.parse(res)
             console.log(json)
             $("#h1").text(json.name + " " + json.symbol)
-            sessionStorage.setItem(json.symbol,res)
+            sessionStorage.setItem(json.symbol+"Pro",res)
             setValue(json.symbol,json.data)
         })
         .fail(()=>$("#h1").text("Fail"))
